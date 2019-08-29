@@ -2,6 +2,8 @@
 const https = require('https');
 const fs = require('fs');
 
+// https://github.com/spacchetti/spago/issues/394
+// https://github.com/purescript/package-sets/issues/451
 const excluded = new Set(['metadata', 'halogen-formless', 'text-encoding']);
 
 const file = fs.createWriteStream("packages.json");
