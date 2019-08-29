@@ -24,6 +24,7 @@ script:
 - node index.js $TAG
 - spago install
 - spago docs
+- cp index.html generated-docs/index.html
 
 deploy:
   provider: pages

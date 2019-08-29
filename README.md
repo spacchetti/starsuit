@@ -1,7 +1,5 @@
 # starsuit
 
-A "stable Pursuit", WIP.
+A "stable Pursuit": generates the documentation for everything from the latest release of [package-sets](https://github.com/purescript/package-sets).
 
-```bash
-rm -rf ./.spago/ && node index.js && spago install && spago docs
-```
+Deployed [here](https://spacchetti.github.io/starsuit/html/).

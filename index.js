@@ -6,9 +6,8 @@ const tag = process.argv[2];
 
 console.log('TAG: ', tag);
 
-// https://github.com/spacchetti/spago/issues/394
 // https://github.com/purescript/package-sets/issues/451
-const excluded = new Set(['metadata', 'halogen-formless', 'text-encoding']);
+const excluded = new Set(['metadata', 'text-encoding']);
 
 const file = fs.createWriteStream("packages.json");
 
