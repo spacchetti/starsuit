@@ -18,7 +18,6 @@ install:
 - tar -xvf $HOME/purescript.tar.gz -C $HOME/
 - chmod a+x $HOME/purescript
 - npm install -g spago
-- spago install
 
 script:
 - node index.js
