@@ -1,4 +1,5 @@
 packages.json
+packages.dhall
 spago.dhall
 /bower_components/
 /node_modules/

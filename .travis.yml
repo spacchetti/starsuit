@@ -20,7 +20,8 @@ install:
 - npm install -g spago
 
 script:
-- node index.js
+- TAG=$(wget -q -O - https://github.com/purescript/package-sets/releases/latest --server-response --max-redirect 0 2>&1 | sed -n -e 's/.*Location:.*tag\///p')
+- node index.js $TAG
 - spago install
 - spago docs
 

@@ -1,6 +1,10 @@
-/* global require */
+/* global process require */
 const https = require('https');
 const fs = require('fs');
+
+const tag = process.argv[2];
+
+console.log('TAG: ', tag);
 
 // https://github.com/spacchetti/spago/issues/394
 // https://github.com/purescript/package-sets/issues/451
@@ -8,7 +12,9 @@ const excluded = new Set(['metadata', 'halogen-formless', 'text-encoding']);
 
 const file = fs.createWriteStream("packages.json");
 
-const request = https.get('https://raw.githubusercontent.com/purescript/package-sets/master/packages.json', function(response) {
+const packagesURL = 'https://raw.githubusercontent.com/purescript/package-sets/' + tag + '/packages.json';
+
+const request = https.get(packagesURL, function(response) {
   response.pipe(file);
 
   file.on('finish', () => {
@@ -23,5 +29,6 @@ const request = https.get('https://raw.githubusercontent.com/purescript/package-
     );
 
     fs.writeFileSync('spago.dhall', spagoDhall);
+    fs.writeFileSync('packages.dhall', 'https://github.com/purescript/package-sets/releases/download/' + tag + '/packages.dhall');
   });
 });
