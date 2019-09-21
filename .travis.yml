@@ -18,19 +18,21 @@ install:
 - tar -xvf $HOME/purescript.tar.gz -C $HOME/
 - chmod a+x $HOME/purescript
 - npm install -g spago
+- npm install -g purescript
+- npm install -g purescript-docs-search
 
 script:
 - TAG=$(wget -q -O - https://github.com/purescript/package-sets/releases/latest --server-response --max-redirect 0 2>&1 | sed -n -e 's/.*Location:.*tag\///p')
 - node index.js $TAG
 - spago install
-- spago docs
-- cp index.html generated-docs/index.html
+- purs docs `spago sources`
+- purescript-docs-search build-index
 
 deploy:
   provider: pages
   skip_cleanup: true
   github_token: $GITHUB_TOKEN
   keep_history: true
-  local_dir: generated-docs
+  local_dir: generated-docs/html
   on:
     branch: master
