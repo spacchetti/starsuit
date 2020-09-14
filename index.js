@@ -4,10 +4,11 @@ const fs = require('fs');
 
 const tag = process.argv[2];
 
-console.log('TAG: ', tag);
+if (typeof tag == 'undefined') {
+    throw "No tag specified as argument!";
+}
 
-// https://github.com/purescript/package-sets/issues/451
-const excluded = new Set(['metadata', 'text-encoding']);
+console.log('TAG: ', tag);
 
 const file = fs.createWriteStream("packages.json");
 
@@ -17,13 +18,12 @@ const request = https.get(packagesURL, function(response) {
   response.pipe(file);
 
   file.on('finish', () => {
-
     const allPackages = require('./packages.json');
 
     const spagoDhall = (
       '{ sources = [ "src/**/*.purs", "test/**/*.purs" ], \
       name = "install-everything", \
-      dependencies = ' + JSON.stringify(Object.keys(allPackages).filter(package => !excluded.has(package))) +
+      dependencies = ' + JSON.stringify(Object.keys(allPackages)) +
         ', packages = ./packages.dhall }'
     );
 
